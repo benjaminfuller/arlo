@@ -34,6 +34,7 @@ import {
   useClearOfflineResults,
   useDeleteOrganization,
   useRenameOrganization,
+  useRemoveAuditAdmin,
 } from './support-api'
 import { useConfirm, Confirm } from '../Atoms/Confirm'
 
@@ -168,7 +169,8 @@ const Table = styled(HTMLTable)`
 
 const Organization = ({ organizationId }: { organizationId: string }) => {
   const organization = useOrganization(organizationId)
-  const createAuditAdmin = useCreateAuditAdmin()
+  const createAuditAdmin = useCreateAuditAdmin(organizationId)
+  const removeAuditAdmin = useRemoveAuditAdmin(organizationId)
   const deleteOrganization = useDeleteOrganization(organizationId)
   const renameOrganization = useRenameOrganization(organizationId)
   const { confirm, confirmProps } = useConfirm()
@@ -188,7 +190,7 @@ const Organization = ({ organizationId }: { organizationId: string }) => {
 
   const onSubmitCreateAuditAdmin = async (auditAdmin: IAuditAdmin) => {
     try {
-      await createAuditAdmin.mutateAsync({ organizationId, auditAdmin })
+      await createAuditAdmin.mutateAsync(auditAdmin)
       resetCreateAdmin()
     } catch (error) {
       toast.error(error.message)
@@ -196,6 +198,17 @@ const Organization = ({ organizationId }: { organizationId: string }) => {
   }
 
   const { name, elections, auditAdmins } = organization.data
+
+  const onClickRemoveAuditAdmin = (auditAdmin: IAuditAdmin) =>
+    confirm({
+      title: 'Confirm',
+      description: `Are you sure you want to remove audit admin ${auditAdmin.email} from organization ${name}?`,
+      yesButtonLabel: 'Remove',
+      onYesClick: async () => {
+        await removeAuditAdmin.mutateAsync({ auditAdminId: auditAdmin.id })
+        toast.success(`Removed audit admin ${auditAdmin.email}`)
+      },
+    })
 
   const onClickDeleteOrg = () =>
     confirm({
@@ -296,11 +309,12 @@ const Organization = ({ organizationId }: { organizationId: string }) => {
               icon="new-person"
               style={{ marginLeft: '20px' }}
               loading={formStateCreateAdmin.isSubmitting}
+              intent="primary"
             >
               Create Audit Admin
             </Button>
           </form>
-          <Table striped>
+          <Table striped style={{ tableLayout: 'auto' }}>
             <tbody>
               {auditAdmins.map(auditAdmin => (
                 <tr key={auditAdmin.email}>
@@ -309,9 +323,18 @@ const Organization = ({ organizationId }: { organizationId: string }) => {
                     <AnchorButton
                       icon="log-in"
                       href={`/api/support/audit-admins/${auditAdmin.email}/login`}
+                      style={{ marginRight: '5px' }}
                     >
                       Log in as
                     </AnchorButton>
+                    <Button
+                      icon="delete"
+                      onClick={() => onClickRemoveAuditAdmin(auditAdmin)}
+                      minimal
+                      intent="danger"
+                    >
+                      Remove
+                    </Button>
                   </td>
                 </tr>
               ))}
