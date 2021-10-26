@@ -1,0 +1,92 @@
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=US/Eastern
+ENV PATH="/root/.pyenv/bin:$PATH"
+ENV ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo'
+ENV HTTP_ORIGIN='http://voter-automation.voterlab:3000'
+ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV FLASK_ENV='development'
+ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu'
+
+
+RUN apt-get -y update \ 
+    && apt-get install -y make build-essential \
+    	libssl-dev zlib1g-dev libbz2-dev libreadline-dev  \
+	libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \	
+	xz-utils tk-dev libffi-dev liblzma-dev python-openssl \
+	tzdata \
+	postgresql-all postgresql-client postgresql postgresql-contrib \
+	sudo git curl \
+    && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN apt update \
+    && apt-get install -y libpq-dev \ 
+    && apt update \
+    && apt install -y python3.8 \ 
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt update \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && python --version \
+    && update-locale LANG=C.UTF-8 \
+    && apt install -y python3.8-distutils \
+    && (wget https://bootstrap.pypa.io/get-pip.py ; python3.8 get-pip.py) \
+    && pip3.8 install poetry \
+    && pip3.8 install pipenv \
+    && pip3.8 install --upgrade pip \
+    && pip3.8 install alembic \
+    && apt-get install -y python3-pip nodejs libpython3.8-dev libpq-dev graphicsmagick nmap \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /opt/arlo-demo/src
+
+WORKDIR /opt/arlo-demo/src
+
+RUN /etc/init.d/postgresql start \
+    && locale-gen en_US.UTF-8 \
+	&& apt update \
+#	&& git clone https://github.com/votingworks/arlo.git \
+	&& git clone https://github.com/benjaminfuller/arlo.git \
+	&& cd arlo \
+	&& git clone https://github.com/votingworks/nOAuth.git \
+	&& pwd \
+	&& sed -i 's/3\.8\.11/3.8.0/g' pyproject.toml \
+	&& poetry update
+
+WORKDIR /opt/arlo-demo/src/arlo
+
+RUN	/etc/init.d/postgresql start \
+ 	&& export DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo' \
+ 	&& export HTTP_ORIGIN='http://voter-automation.voterlab:3000' \
+	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+	&& export FLASK_ENV='development' \
+	&& export ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu' \
+	&& export ARLO_SUPPORT_AUTH0_CLIENT_ID='' \
+	&& export ARLO_SUPPORT_AUTH0_CLIENT_SECRET='' \
+	&& export ARLO_AUDITADMIN_AUTH0_CLIENT_ID='' \
+	&& export ARLO_AUDITADMIN_AUTH0_CLIENT_SECRET='' \
+	&& make dev-environment \
+	&& /etc/init.d/postgresql stop 
+
+
+ENTRYPOINT  /etc/init.d/postgresql start \
+	&& (cd nOAuth ; \
+	    sed -i 's/3\.7/3.8/g' Pipfile; \
+	    pipenv install; \
+	    PORT=8080 nohup pipenv run python app.py &) \
+ 	&& export DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo' \
+ 	&& export HTTP_ORIGIN='http://voter-automation.voterlab:3000' \
+ 	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+ 	&& export FLASK_ENV='development' \
+	&& export ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu' \
+	&& export ARLO_SUPPORT_AUTH0_CLIENT_ID='' \
+	&& export ARLO_SUPPORT_AUTH0_CLIENT_SECRET='' \
+	&& export ARLO_AUDITADMIN_AUTH0_CLIENT_ID='' \
+	&& export ARLO_AUDITADMIN_AUTH0_CLIENT_SECRET='' \
+ 	&& ./run-dev.sh
