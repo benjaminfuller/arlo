@@ -235,7 +235,6 @@ def get_sample_sizes(election: Election):
         # Don't need to recompute after the audit launches
         and len(list(election.rounds)) == 0
     )
-    existing_options_expired= False
     if not election.sample_size_options_task or existing_options_expired:
         election.sample_size_options = None
         election.sample_size_options_task = create_background_task(
