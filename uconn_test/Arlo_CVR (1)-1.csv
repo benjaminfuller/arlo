@@ -1,0 +1,17 @@
+Test,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,Contest 1 (Vote For=1),Contest 1 (Vote For=1),Contest 1 (Vote For=1),Contest 1 (Vote For=1),Contest 1 (Vote For=1),Contest 2 (Vote For=1),Contest 2 (Vote For=1),Contest 2 (Vote For=1),Contest 2 (Vote For=1),Contest 2 (Vote For=1),Contest 3 (Vote For=1),Contest 3 (Vote For=1),Contest 3 (Vote For=1),Contest 3 (Vote For=1),Contest 3 (Vote For=1),Contest 4 (Vote For=1),Contest 4 (Vote For=1),Contest 4 (Vote For=1),Contest 4 (Vote For=1),Contest 5 (Vote For=1),Contest 5 (Vote For=1),Contest 5 (Vote For=1),Contest 6 (Vote For=1),Contest 6 (Vote For=1),Contest 6 (Vote For=1)
+,,,,,,,,1A:BIDEN & HARRIS-DEM,1B:TRUMP & PENCE-REP,1E:JORGENSEN & COHEN-LIB,1F:HAWKINS & WALKER-GRN,1G:Write-In (1),2A:JOHN LARSON-DEM,2D:JOHN LARSON-WKF,2B:MARY FAY-REP,2F:THOMAS McCORMICK-GRN,2G:Write-In (2),3A:FREDERICK MOFFA-DEM,3D:FREDERICK MOFFA-WKF,3B:JOHN KISSEL-REP,3C:JOHN KISSEL-IND,3G:Write-In (3),4A:AUDREY LAMPERT-DEM,4B:MARK ANDERSON-REP,4C:MARK ANDERSON-IND,4G:Write-In (4),5A:LAURA WOLFE-DEM,5B:SONJA SMITH-REP,5G:Write-In (5),3A:MELISSA OSBORNE-DEM,3B:KEVIN WITKOS-REP,3C:KEITH McCONNELL-IND
+CvrNumber,TabulatorNum,BatchId,RecordId,ImprintedId,CountingGroup,PrecinctPortion,BallotType,DEM,REP,LIB,GRN,-1,DEM,WKF,REP,GRN,-2,DEM,WKF,REP,IND,-3,DEM,REP,IND,-4,DEM,REP,-5,DEM,REP,IND
+1,TABULATOR1,BATCH1,1,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+2,TABULATOR1,BATCH1,2,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+3,TABULATOR1,BATCH1,3,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+4,TABULATOR1,BATCH1,4,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+5,TABULATOR1,BATCH1,5,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+6,TABULATOR1,BATCH1,6,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+7,TABULATOR1,BATCH1,7,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+8,TABULATOR1,BATCH1,8,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+9,TABULATOR1,BATCH1,9,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+10,TABULATOR1,BATCH1,10,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+11,TABULATOR1,BATCH1,11,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+12,TABULATOR1,BATCH1,12,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
+13,TABULATOR1,BATCH1,13,N/A,Pilot,Pilot Precinct,DIST 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0
