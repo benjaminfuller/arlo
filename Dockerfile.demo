@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=US/Eastern
+ENV TZ=UTC
 ENV PATH="/root/.pyenv/bin:$PATH"
 ENV ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
 ENV DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo'
@@ -52,8 +52,7 @@ RUN /etc/init.d/postgresql start \
 #	&& git clone https://github.com/votingworks/arlo.git \
 	&& git clone https://github.com/benjaminfuller/arlo.git \
 	&& cd arlo \
-#	&& git clone https://github.com/votingworks/nOAuth.git \
-	&& git clone https://github.com/benjaminfuller/arlo-noauth nOAuth
+	&& git clone https://github.com/votingworks/nOAuth.git \
 	&& pwd \
 	&& sed -i 's/3\.8\.11/3.8.0/g' pyproject.toml \
 	&& poetry update
