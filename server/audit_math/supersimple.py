@@ -30,6 +30,7 @@ def nMin(
     Computes a sample size parameterized by expected under and overstatements
     and the margin.
     """
+    if(contest.diluted_margin is 0) return contest.ballots
     return (o1 + o2 + u1 + u2).max(
         math.ceil(
             -2

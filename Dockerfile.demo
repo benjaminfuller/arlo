@@ -52,7 +52,8 @@ RUN /etc/init.d/postgresql start \
 #	&& git clone https://github.com/votingworks/arlo.git \
 	&& git clone https://github.com/benjaminfuller/arlo.git \
 	&& cd arlo \
-	&& git clone https://github.com/votingworks/nOAuth.git \
+#	&& git clone https://github.com/votingworks/nOAuth.git \
+	&& git clone https://github.com/benjaminfuller/arlo-noauth.git nOAuth \
 	&& pwd \
 	&& sed -i 's/3\.8\.11/3.8.0/g' pyproject.toml \
 	&& poetry update
