@@ -1051,3 +1051,4 @@ CvrNumber,TabulatorNum,BatchId,RecordId,ImprintedId,CountingGroup,PrecinctPortio
 1047,TABULATOR1,BATCH50,18,Jurisdiction1-50-16,Pilot,Jurisdiction1,OFFS 3-15-71,1,0,0,0,0,0,1,0,0,1,0,1,0,1,0,0,0
 1048,TABULATOR1,BATCH50,19,Jurisdiction1-50-10,Pilot,Jurisdiction1,OFFS 3-15-71,1,0,0,0,0,0,1,0,0,1,0,1,0,1,0,0,0
 1049,TABULATOR1,BATCH50,20,Jurisdiction1-50-21,Pilot,Jurisdiction1,OFFS 3-15-71,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0
+1050,TABULATOR1,BATCH50,21,Jurisdiction1-50-4,Pilot,Jurisdiction1,OFFS 3-15-71,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
