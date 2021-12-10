@@ -123,7 +123,9 @@ def run_task(task: BackgroundTask, db_session=db_session) -> bool:
 
         log_data["traceback"] = str(traceback.format_tb(error.__traceback__))
         logger.error(f"TASK_ERROR {log_data}")
-        raise error
+        # Avoid failing in order to keep the process running
+        # raise error
+        return False
 
 
 def run_new_tasks(db_session=db_session):
