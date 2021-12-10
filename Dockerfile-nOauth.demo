@@ -1,0 +1,38 @@
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+ENV PATH="/root/.pyenv/bin:$PATH"
+ENV FLASK_ENV='development'
+
+
+RUN apt update \
+    && apt-get install -y python3.8 \
+    && apt-get install -y git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt update \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 && python --version \
+    && apt-get clean && apt-get update && apt-get install -y locales \
+    && update-locale LANG=C.UTF-8 \
+    && apt install -y python3.8-distutils \
+    && apt-get install -y wget \
+    && (wget https://bootstrap.pypa.io/get-pip.py ; python3.8 get-pip.py) \
+    && pip3.8 install poetry \
+    && pip3.8 install --upgrade pip \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /opt/noauth/src
+
+WORKDIR /opt/noauth/src
+
+RUN     locale-gen en_US.UTF-8 \
+#	&& git clone https://github.com/votingworks/nOAuth.git \
+	&& git clone https://github.com/benjaminfuller/nOAuth.git \
+	&& cd nOAuth \
+	&& pwd \
+	&& sed -i 's/3\.8\.11/3.8.0/g' pyproject.toml \
+	&& poetry update
+
+ENTRYPOINT cd nOAuth \
+	   && poetry install \
+	   && PORT=8080 poetry run python noauth.py
