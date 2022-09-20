@@ -56,6 +56,7 @@ RUN /etc/init.d/postgresql start \
 	&& git clone https://github.com/benjaminfuller/nOauth.git nOAuth \
 	&& pwd \
 	&& sed -i 's/3\.8\.11/3.8.0/g' pyproject.toml \
+	&& pip3 install --upgrade keyrings.alt \
 	&& poetry update
 
 WORKDIR /opt/arlo-demo/src/arlo
