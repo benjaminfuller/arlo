@@ -63,6 +63,7 @@ RUN /etc/init.d/postgresql start \
 WORKDIR /opt/arlo-demo/src/arlo
 
 RUN	/etc/init.d/postgresql start \
+	&& pip3 install 'markupsafe<=2.0.1' \
  	&& export DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo' \
  	&& export HTTP_ORIGIN='http://voter-automation.voterlab:3000' \
 	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \

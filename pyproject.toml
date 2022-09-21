@@ -27,6 +27,7 @@ psycopg2-binary = "~2.8.6"
 consistent-sampler = {git = "https://github.com/votingworks/consistent_sampler.git"}
 scipy = "~1.6.0"
 Flask-SeaSurf = "^0.3.0"
+markupsafe = "2.0.1"
 
 [tool.poetry.dev-dependencies]
 filelock = "^3.0.12"
@@ -40,6 +41,7 @@ snapshottest = "^0.6.0"
 pytest-alembic = "^0.2.5"
 pytest-xdist = "^2.3.0"
 sqlalchemy-stubs = "^0.3"
+markupsafe = "2.0.1"
 noauth = {git = "https://github.com/benjaminfuller/nOAuth.git", rev = "main"}
 
 [build-system]
