@@ -1,14 +1,15 @@
 FROM ubuntu:18.04
 
+ENV HOSTNAME='voter-automation.voterlab'
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 ENV PATH="/root/.pyenv/bin:$PATH"
-ENV ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV ARLO_AUDITADMIN_AUTH0_BASE_URL="http://$HOSTNAME:8080"
 ENV DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo'
-ENV HTTP_ORIGIN='http://voter-automation.voterlab:3000'
-ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV HTTP_ORIGIN='http://$HOSTNAME:3000'
+ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://$HOSTNAME:8080"
 ENV FLASK_ENV='development'
-ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080"
+ENV ARLO_SUPPORT_AUTH0_BASE_URL="http://$HOSTNAME:8080"
 ENV ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu'
 
 
@@ -65,9 +66,9 @@ WORKDIR /opt/arlo-demo/src/arlo
 RUN	/etc/init.d/postgresql start \
 	&& pip3 install 'markupsafe<=2.0.1' \
  	&& export DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo' \
- 	&& export HTTP_ORIGIN='http://voter-automation.voterlab:3000' \
-	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
-	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+ 	&& export HTTP_ORIGIN='http://$HOSTNAME:3000' \
+	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://$HOSTNAME:8080" \
+	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://$HOSTNAME:8080" \
 	&& export FLASK_ENV='development' \
 	&& export ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu' \
 	&& export ARLO_SUPPORT_AUTH0_CLIENT_ID='' \
@@ -82,11 +83,12 @@ ENTRYPOINT  /etc/init.d/postgresql start \
 	&& (cd nOAuth ; \
 	    sed -i 's/3\.7/3.8/g' Pipfile; \
 	    pipenv install; \
-	    PORT=8080 nohup pipenv run python app.py &) \
+	    poetry update; \
+	    PORT=8080 nohup poetry run python noauth.py &) \
  	&& export DATABASE_URL='postgresql://arlo:arlo@localhost:5432/arlo' \
- 	&& export HTTP_ORIGIN='http://voter-automation.voterlab:3000' \
- 	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
-	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://voter-automation.voterlab:8080" \
+ 	&& export HTTP_ORIGIN='http://$HOSTNAME:3000' \
+ 	&& export ARLO_AUDITADMIN_AUTH0_BASE_URL="http://$HOSTNAME:8080" \
+	&& export ARLO_SUPPORT_AUTH0_BASE_URL="http://$HOSTNAME:8080" \
  	&& export FLASK_ENV='development' \
 	&& export ARLO_SUPPORT_EMAIL_DOMAIN='uconn.edu' \
 	&& export ARLO_SUPPORT_AUTH0_CLIENT_ID='' \
